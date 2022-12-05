@@ -5,7 +5,7 @@ doctrine:
         port: '%env(POSTGRES_PORT)%'
         user: '%env(POSTGRES_USER)%'
         password: '%env(POSTGRES_PASSWORD)%'
-        driver: pdo_mysql
+        driver: pdo_pgsql
         server_version: 14
         charset: utf8
     orm:
