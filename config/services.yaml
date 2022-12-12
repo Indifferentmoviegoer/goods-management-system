@@ -4,6 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    rabbitmq_user: '%env(RABBITMQ_USER)%'
+    rabbitmq_password: '%env(RABBITMQ_PASSWORD)%'
+    rabbitmq_host: '%env(RABBITMQ_HOST)%'
+    rabbitmq_port: '%env(RABBITMQ_PORT)%'
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +26,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Helper\FileHelper:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
