@@ -25,6 +25,8 @@ class ProductController extends AbstractController
 
             if ($file && $fileName = $fileHelper->upload($file)) {
                 $productService->importFromXml($fileName);
+
+                return $this->redirectToRoute('homepage');
             }
         }
 
