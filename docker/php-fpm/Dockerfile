@@ -1,4 +1,4 @@
-FROM php:8.1.5-fpm-bullseye as php_fpm_production
+FROM php:8.2-fpm-bullseye as php_fpm_production
 
 RUN apt update && apt install -y --no-install-recommends wget apt-transport-https gpg ca-certificates
 RUN wget -O- https://mirror.yandex.ru/debian/dists/bullseye/Release.gpg | gpg --dearmor > /usr/share/keyrings/yandex.gpg
@@ -46,10 +46,9 @@ EXPOSE 9000
 
 FROM php_fpm_production as php_fpm_dev
 
-RUN pecl install xdebug-3.1.4 && docker-php-ext-enable xdebug
-RUN pecl clear-cache
-
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
+
 COPY php-fpm/xdebug.ini $PHP_INI_DIR/conf.d/xdebug.ini
 
 ENV PHP_IDE_CONFIG="serverName=goods-management-system"

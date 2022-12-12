@@ -11,8 +11,6 @@ services:
     volumes:
       - ./:/var/www/symfony:cached
 
-###> symfony/mailer ###
   mailer:
     image: schickling/mailcatcher
     ports: [1025, 1080]
-###< symfony/mailer ###
