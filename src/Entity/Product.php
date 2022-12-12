@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
@@ -24,6 +26,9 @@ class Product
 
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, inversedBy: 'products')]
     private Collection $categories;
+
+    #[ORM\Column(length: 255)]
+    private ?string $weight = null;
 
     public function __construct()
     {
@@ -79,6 +84,18 @@ class Product
     public function removeCategory(ProductCategory $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getWeight(): ?string
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(string $weight): self
+    {
+        $this->weight = $weight;
 
         return $this;
     }
