@@ -53,7 +53,7 @@ class ProductCrudController extends AbstractCrudController
 
         $productImport = Action::new('productImport', 'Импорт товаров', 'fa fa-file-invoice')
             ->setCssClass('btn btn-success action-foo')
-            ->linkToRoute('productImport')
+            ->linkToUrl('/import')
             ->createAsGlobalAction();
 
         $actions->add(Crud::PAGE_INDEX, $productImport);

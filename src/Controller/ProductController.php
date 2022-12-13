@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
-    #[Route('/productImport', name: 'productImport')]
+    #[Route('/import', name: 'import')]
     public function index(Request $request, FileHelper $fileHelper, ProductService $productService): Response
     {
         $form = $this->createForm(FileUploadType::class);

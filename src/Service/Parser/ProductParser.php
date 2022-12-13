@@ -7,7 +7,6 @@ namespace App\Service\Parser;
 use App\Dto\ProductsDto;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
-use App\Helper\FileHelper;
 use App\Helper\ImportHelper;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
@@ -21,12 +20,10 @@ use Symfony\Component\Serializer\Serializer;
 
 class ProductParser
 {
-    private FileHelper $fileHelper;
     private ManagerRegistry $doctrine;
 
-    public function __construct(FileHelper $fileHelper, ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
-        $this->fileHelper = $fileHelper;
         $this->doctrine = $doctrine;
     }
 
