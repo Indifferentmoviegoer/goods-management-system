@@ -21,7 +21,7 @@ class FileUploadType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '100m',
+                        'maxSize' => '900m',
                         'mimeTypes' => [
                             'application/xml',
                             'text/xml'
