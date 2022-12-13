@@ -19,7 +19,7 @@ services:
     build:
       context: ./docker
       dockerfile: php-fpm/Dockerfile
-      target: php_fpm_production
+      target: php_fpm_dev
     volumes:
       - ./:/var/www/symfony:cached
 
