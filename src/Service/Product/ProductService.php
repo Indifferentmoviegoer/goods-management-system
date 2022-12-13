@@ -16,8 +16,8 @@ class ProductService
         $this->messageBus = $messageBus;
     }
 
-    public function importFromXml(string $fileName): void
+    public function importFromXml(string $filePath): void
     {
-        $this->messageBus->dispatch((new ProductImportMessage($fileName)));
+        $this->messageBus->dispatch((new ProductImportMessage($filePath)));
     }
 }

@@ -24,7 +24,7 @@ class ProductImportMessageHandler
     public function __invoke(ProductImportMessage $message): void
     {
         try {
-            $this->productParser->parserXml($message->getFileName());
+            $this->productParser->parserXml($message->getFilePath());
 
         } catch (Exception $exception) {
             $this->logger->error(sprintf('Product ERROR [%s]', $exception->getMessage()));

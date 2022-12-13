@@ -6,15 +6,15 @@ namespace App\Service\Product\Messenger;
 
 class ProductImportMessage
 {
-    protected string $fileName;
+    protected string $filePath;
 
-    public function __construct(string $fileName)
+    public function __construct(string $filePath)
     {
-        $this->fileName = $fileName;
+        $this->filePath = $filePath;
     }
 
-    public function getFileName(): string
+    public function getFilePath(): string
     {
-        return $this->fileName;
+        return $this->filePath;
     }
 }

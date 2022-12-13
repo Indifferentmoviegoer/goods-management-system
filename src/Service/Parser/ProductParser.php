@@ -47,11 +47,9 @@ class ProductParser
         }
     }
 
-    private function getXmlContent(string $fileName): string|false
+    private function getXmlContent(string $filePath): string|false
     {
-        $url = sprintf('%s/%s', $this->fileHelper->getUploadsDirectory(), $fileName);
-
-        return file_get_contents($url);
+        return file_get_contents($filePath);
     }
 
     private function deserializeXmlToObject(bool|string $xmlContent): ProductsDto

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<products>
+    <product>
+        <name>in suscipit</name>
+        <description>By this time she found herself at last it unfolded its arms</description>
+        <weight>30 g</weight>
+        <category>et</category>
+    </product>
+    <product>
+        <name>in suscipit2</name>
+        <description>By2 this time she found herself at last it unfolded its arms</description>
+        <weight>302 g</weight>
+        <category>et2</category>
+    </product>
+</products>

@@ -37,7 +37,7 @@ class FileHelper
             return null;
         }
 
-        return $fileName;
+        return sprintf('%s/%s', $this->getUploadsDirectory(), $fileName);
     }
 
     public function getPublicDir(): string
