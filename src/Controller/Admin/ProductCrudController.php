@@ -44,6 +44,13 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $coverage = Action::new('coverage', 'Покрытие тестами', 'fa fa-pie-chart')
+            ->setCssClass('btn btn-secondary action-foo')
+            ->linkToUrl('/coverage/')
+            ->createAsGlobalAction();
+
+        $actions->add(Crud::PAGE_INDEX, $coverage);
+
         $productImport = Action::new('productImport', 'Импорт товаров', 'fa fa-file-invoice')
             ->setCssClass('btn btn-success action-foo')
             ->linkToRoute('productImport')
@@ -53,5 +60,4 @@ class ProductCrudController extends AbstractCrudController
 
         return parent::configureActions($actions);
     }
-
 }

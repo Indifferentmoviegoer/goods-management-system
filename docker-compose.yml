@@ -12,6 +12,7 @@ services:
     volumes:
       - ./public/:/var/www/symfony/public:cached
       - ./docker/logs/nginx:/var/log/nginx:cached
+      - ./coverage:/var/www/symfony/coverage:cached
 
   php:
     user: ${DOCKER_UID}

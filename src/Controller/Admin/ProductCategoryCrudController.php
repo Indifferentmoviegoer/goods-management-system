@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\ProductCategory;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -37,5 +39,17 @@ class ProductCategoryCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX !== $pageName) {
             yield AssociationField::new('products', 'Товары')->autocomplete();
         }
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        $coverage = Action::new('coverage', 'Покрытие тестами', 'fa fa-pie-chart')
+            ->setCssClass('btn btn-secondary action-foo')
+            ->linkToUrl('/coverage/')
+            ->createAsGlobalAction();
+
+        $actions->add(Crud::PAGE_INDEX, $coverage);
+
+        return parent::configureActions($actions);
     }
 }
