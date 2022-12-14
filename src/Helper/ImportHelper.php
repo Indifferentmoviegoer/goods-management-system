@@ -6,9 +6,11 @@ namespace App\Helper;
 
 class ImportHelper
 {
-    public static function initImportOptions(): void
+    public static function initImportOptions(?bool $isSafeMode = true): bool
     {
-        set_time_limit(0);
-        ini_set('memory_limit', '-1');
+        $isUnlimitedTime = set_time_limit(0);
+        $isUnlimitedMemory = (bool)ini_set('memory_limit', '-1');
+
+        return $isSafeMode ? $isUnlimitedMemory : $isUnlimitedTime && $isUnlimitedMemory;
     }
 }

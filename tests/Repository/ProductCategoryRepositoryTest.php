@@ -13,9 +13,9 @@ class ProductCategoryRepositoryTest extends WebTestCase
     {
         $productCategoryRepository = $this->getProductCategoryRepository();
 
-        $product = new ProductCategory();
-        $product->setTitle('example');
-        $productCategoryRepository->save($product, true);
+        $productCategory = new ProductCategory();
+        $productCategory->setTitle('example');
+        $productCategoryRepository->save($productCategory, true);
 
         $productCategory = $productCategoryRepository->findOneByTitle('example');
         $this->assertEquals('example', $productCategory->getTitle());
