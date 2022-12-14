@@ -4,34 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Service\Parser;
 
-use App\Entity\Product;
-use App\Entity\ProductCategory;
-use App\Repository\ProductCategoryRepository;
-use App\Repository\ProductRepository;
 use App\Service\Parser\ProductParser;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\Common\WebTestCase;
 
 class ProductParserTest extends WebTestCase
 {
-    private const FILE_RELATIVE_PATH = 'import.xml';
-
     public function testParserXml()
     {
-        $filePath = sprintf('%s/%s', dirname(__DIR__, 2), self::FILE_RELATIVE_PATH);
-
         $productParser = $this->getContainer()->get(ProductParser::class);
-        $productParser->parserXml($filePath);
+        $productParser->parserXml($this->getXmlFilePath());
 
-        $doctrine = $this->getContainer()->get(ManagerRegistry::class);
-
-        /** @var ProductRepository $productRepository */
-        $productRepository = $doctrine->getRepository(Product::class);
-        /** @var ProductCategoryRepository $productCategoryRepository */
-        $productCategoryRepository = $doctrine->getRepository(ProductCategory::class);
-
-        $products = $productRepository->findAll();
-        $productCategories = $productCategoryRepository->findAll();
+        $products = $this->getProductRepository()->findAll();
+        $productCategories = $this->getProductCategoryRepository()->findAll();
 
         $this->assertEquals('in suscipit', $products[0]->getName());
         $this->assertEquals('By this time she found herself at last it unfolded its arms', $products[0]->getDescription());

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Product;
 
 use App\Service\Product\Messenger\ProductImportMessage;
+use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class ProductService
@@ -16,8 +17,8 @@ class ProductService
         $this->messageBus = $messageBus;
     }
 
-    public function importFromXml(string $filePath): void
+    public function importFromXml(string $filePath): Envelope
     {
-        $this->messageBus->dispatch((new ProductImportMessage($filePath)));
+        return $this->messageBus->dispatch((new ProductImportMessage($filePath)));
     }
 }
