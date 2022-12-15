@@ -27,12 +27,12 @@ class WebTestCase extends ApiTestCase
     private const FILE_RELATIVE_PATH = 'tests/Common/import.xml';
     private const COPY_FILE_RELATIVE_PATH = 'public/uploads/import.xml';
 
-    protected function getXmlFilePath(): string
+    public static function getXmlFilePath(): string
     {
         return sprintf('%s/%s', dirname(__DIR__, 2), self::FILE_RELATIVE_PATH);
     }
 
-    protected function getXmlCopyFilePath(): string
+    public static function getXmlCopyFilePath(): string
     {
         return sprintf('%s/%s', dirname(__DIR__, 2), self::COPY_FILE_RELATIVE_PATH);
     }

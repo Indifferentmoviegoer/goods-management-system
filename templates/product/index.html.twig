@@ -6,11 +6,11 @@
     <div class="container container-fluid">
         <div class="row">
             <div class="col-lg-8">
-                {{ form_start(form, { attr: { 'accept-charset' : 'utf-8' }}) }}
+                {{ form_start(form, {'multipart': true }) }}
                 <div class="form-group">
-                    {{ form_label(form.uploadedFile) }}
-                    {{ form_widget(form.uploadedFile) }}
-                    {{ form_errors(form.uploadedFile) }}
+                    {{ form_label(form.upload_file) }}
+                    {{ form_widget(form.upload_file) }}
+                    {{ form_errors(form.upload_file) }}
                 </div>
                 <br>
                 <div class="form-group">

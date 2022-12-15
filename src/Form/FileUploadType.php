@@ -15,7 +15,7 @@ class FileUploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('uploadedFile', FileType::class, [
+            ->add('upload_file', FileType::class, [
                 'label' => false,
                 'mapped' => false,
                 'required' => true,
