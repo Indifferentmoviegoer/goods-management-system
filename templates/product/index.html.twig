@@ -8,12 +8,13 @@
             <div class="col-lg-8">
                 {{ form_start(form, { attr: { 'accept-charset' : 'utf-8' }}) }}
                 <div class="form-group">
-                    {{ form_label(form.upload_file) }}
-                    {{ form_widget(form.upload_file) }}
-                    {{ form_errors(form.upload_file) }}
+                    {{ form_label(form.uploadedFile) }}
+                    {{ form_widget(form.uploadedFile) }}
+                    {{ form_errors(form.uploadedFile) }}
                 </div>
+                <br>
                 <div class="form-group">
-                    {{ form_widget(form.send, {'label': "Upload this file", 'attr' : { 'class': 'btn btn-primary' }}) }}
+                    {{ form_widget(form.send, {'label': "Загрузить файл", 'attr' : { 'class': 'btn btn-primary' }}) }}
                 </div>
                 {{ form_rest(form) }}
                 {{ form_end(form) }}

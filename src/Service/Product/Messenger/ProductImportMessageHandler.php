@@ -21,13 +21,15 @@ class ProductImportMessageHandler
         $this->logger = $logger;
     }
 
-    public function __invoke(ProductImportMessage $message): void
+    public function __invoke(ProductImportMessage $message): bool
     {
         try {
-            $this->productParser->parserXml($message->getFilePath());
+            return $this->productParser->parserXml($message->getFilePath());
 
         } catch (Exception $exception) {
             $this->logger->error(sprintf('Product ERROR [%s]', $exception->getMessage()));
+
+            return false;
         }
     }
 }

@@ -9,8 +9,8 @@ use App\Tests\Common\WebTestCase;
 
 class ImportHelperTest extends WebTestCase
 {
-    public function testInitImportOptions()
+    public function testInitImportOptions(): void
     {
-        self::assertEquals(true, ImportHelper::initImportOptions());
+        $this->assertEquals(true, ImportHelper::initImportOptions());
     }
 }

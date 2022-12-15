@@ -21,7 +21,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['upload_file']->getData();
+            $file = $form['uploadedFile']->getData();
 
             if ($file && $filePath = $fileHelper->upload($file)) {
                 $productService->importFromXml($filePath);

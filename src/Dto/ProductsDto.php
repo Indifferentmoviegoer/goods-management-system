@@ -9,12 +9,12 @@ class ProductsDto
     /**
      * @var ProductDto[]
      */
-    private array $product;
+    private ?array $product = null;
 
     /**
-     * @return ProductDto[]
+     * @return ProductDto[]|null
      */
-    public function getProduct(): array
+    public function getProduct(): ?array
     {
         return $this->product;
     }

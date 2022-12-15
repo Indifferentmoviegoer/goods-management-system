@@ -4,4 +4,3 @@
  - Подтянуть зависимости `docker-compose exec php composer install`
  - Применить миграции `docker-compose exec php bin/console doctrine:migrations:migrate`
  - Запустить тесты `make tests`
- - Сгенерировать отчет по генерации покрытия тестами `docker-compose exec php bin/phpunit --coverage-html ./coverage`

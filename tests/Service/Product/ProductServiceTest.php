@@ -10,7 +10,7 @@ use App\Tests\Common\WebTestCase;
 
 class ProductServiceTest extends WebTestCase
 {
-    public function testImportFromXml()
+    public function testImportFromXml(): void
     {
         $productService = $this->getContainer()->get(ProductService::class);
         $envelope = $productService->importFromXml($this->getXmlFilePath());

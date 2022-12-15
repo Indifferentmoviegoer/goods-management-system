@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Tests\Common;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Entity\Product;
 use App\Entity\ProductCategory;
 use App\Helper\FileHelper;
 use App\Repository\ProductCategoryRepository;
 use App\Repository\ProductRepository;
+use App\Service\Product\Messenger\ProductImportMessageHandler;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class WebTestCase extends ApiTestCase
 {
@@ -21,6 +21,8 @@ class WebTestCase extends ApiTestCase
     protected const METHOD_GET = 'GET';
     protected const METHOD_PATCH = 'PATCH';
     protected const METHOD_DELETE = 'DELETE';
+
+    protected const EXAMPLE_TEXT = 'example';
 
     private const FILE_RELATIVE_PATH = 'tests/Common/import.xml';
     private const COPY_FILE_RELATIVE_PATH = 'public/uploads/import.xml';
@@ -55,43 +57,54 @@ class WebTestCase extends ApiTestCase
         return $this->getContainer()->get(FileHelper::class);
     }
 
-    protected function jsonRequest(
-        Client $client,
-        string $method,
-        string $uri,
-        array $data = []
-    ): ResponseInterface {
-        $queryString = '';
-        $options = [];
-        $headers = [
-            'Accept' => 'application/json',
-        ];
+    protected function getProductImportMessageHandler(): ProductImportMessageHandler
+    {
+        return $this->getContainer()->get(ProductImportMessageHandler::class);
+    }
 
-        switch ($method) {
-            case 'GET':
-                foreach ($data as $key => $value) {
-                    if (!empty($queryString)) {
-                        $queryString .= '&';
-                    }
+    protected function getLoggerInterface(): LoggerInterface
+    {
+        return $this->getContainer()->get(LoggerInterface::class);
+    }
 
-                    $queryString .= $key . '=' . $value;
-                }
-                break;
-            case 'PUT':
-            case 'POST':
-                $headers['Content-Type'] = 'application/json';
-                $options['json'] = $data;
-                break;
-            case 'PATCH':
-                $headers['Content-Type'] = 'application/merge-patch+json';
-                $options['json'] = $data;
-                break;
-        }
+    protected function createProduct(): Product
+    {
+        $product = new Product();
+        $product
+            ->setName(self::EXAMPLE_TEXT)
+            ->setDescription(self::EXAMPLE_TEXT)
+            ->setWeight('20 g');
 
-        $options = array_merge($options, [
-            'headers' => $headers,
-        ]);
+        $this->getProductRepository()->save($product, true);
 
-        return $client->request($method, $uri . '?' . $queryString, $options);
+        return $product;
+    }
+
+    protected function addCategory(Product $product, ProductCategory $productCategory): Product
+    {
+        $product->addCategory($productCategory);
+
+        $this->getProductRepository()->save($product, true);
+
+        return $product;
+    }
+
+    protected function createProductCategory(): ProductCategory
+    {
+        $productCategory = new ProductCategory();
+        $productCategory->setTitle(self::EXAMPLE_TEXT);
+
+        $this->getProductCategoryRepository()->save($productCategory, true);
+
+        return $productCategory;
+    }
+
+    protected function addProduct(ProductCategory $productCategory, Product $product): ProductCategory
+    {
+        $productCategory->addProduct($product);
+
+        $this->getProductCategoryRepository()->save($productCategory, true);
+
+        return $productCategory;
     }
 }

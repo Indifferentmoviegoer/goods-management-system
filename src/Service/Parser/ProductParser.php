@@ -30,7 +30,7 @@ class ProductParser
     /**
      * @throws Exception
      */
-    public function parserXml(string $fileName): void
+    public function parserXml(string $fileName): bool
     {
         ImportHelper::initImportOptions();
 
@@ -42,6 +42,8 @@ class ProductParser
             $product = $this->createOrUpdateProduct((object)$item, $productCategory);
             $this->createOrUpdateProductCategory((object)$item, $product);
         }
+
+        return true;
     }
 
     private function getXmlContent(string $filePath): string|false

@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace App\Tests\Helper;
 
 use App\Tests\Common\WebTestCase;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileHelperTest extends WebTestCase
 {
-    public function testGetPublicDir()
+    public function testGetPublicDir(): void
     {
-        self::assertEquals('/var/www/symfony/public', $this->getFileHelper()->getPublicDir());
+        $this->assertEquals('/var/www/symfony/public', $this->getFileHelper()->getPublicDir());
     }
 
-    public function testGetUploadsDirectory()
+    public function testGetUploadsDirectory(): void
     {
-        self::assertEquals('/var/www/symfony/public/uploads', $this->getFileHelper()->getUploadsDirectory());
+        $this->assertEquals('/var/www/symfony/public/uploads', $this->getFileHelper()->getUploadsDirectory());
     }
 
-    public function testUpload()
+    public function testUpload(): void
     {
         $xmlFile = new UploadedFile(
             $this->getXmlFilePath(), 'import.xml', 'application/xml', null, true
@@ -30,5 +31,15 @@ class FileHelperTest extends WebTestCase
         $this->assertEquals(true, (bool)$this->getFileHelper()->upload($xmlFile));
 
         copy($this->getXmlCopyFilePath(), $this->getXmlFilePath());
+    }
+
+    public function testFailedUpload(): void
+    {
+        $xmlFile = $this->createMock(UploadedFile::class);
+        $xmlFile
+            ->method('move')
+            ->willThrowException(new FileException());
+
+        $this->assertEquals(null, $this->getFileHelper()->upload($xmlFile));
     }
 }

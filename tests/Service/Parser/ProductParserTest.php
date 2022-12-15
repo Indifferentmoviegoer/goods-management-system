@@ -9,7 +9,7 @@ use App\Tests\Common\WebTestCase;
 
 class ProductParserTest extends WebTestCase
 {
-    public function testParserXml()
+    public function testParserXml(): void
     {
         $productParser = $this->getContainer()->get(ProductParser::class);
         $productParser->parserXml($this->getXmlFilePath());
